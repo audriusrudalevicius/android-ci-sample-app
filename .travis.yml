@@ -1,13 +1,34 @@
 sudo: required
 
-language: java
+language: android
+jdk: oraclejdk8
 
 services:
   - docker
+env:
+  matrix:
+    - ANDROID_TARGET=android-24 ANDROID_ABI=armeabi-v7a
+android:
+  components:
+    - tools
+    - platform-tools
+    - android-24
+    - build-tools-24.0.1
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
-before_install:
+before_script:
 - docker pull d3trax/android-build
 - docker run -v `pwd`:/project d3trax/android-build run_build
+- echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+- emulator -avd test -no-skin -no-audio -no-window &
+- adb wait-for-device
+- adb shell input keyevent 82 &
 
 script:
 - ls ./app/build/outputs/apk/app-debug.apk
