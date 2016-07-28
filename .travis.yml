@@ -1,29 +1,12 @@
-sudo: required
-
-language: java
+language: android
 jdk: oraclejdk8
 
-services:
-  - docker
-
-before_script:
-- docker pull d3trax/android-build
-- docker run -v $HOME/.gradle:/root/.gradle -v `pwd`:/project d3trax/android-build run_build
-
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-24.0.1
+    - android-24
 
 script:
 - ls ./app/build/outputs/apk/app-debug.apk
-
-deploy:
-  skip_cleanup: true
-
-branches:
-  only:
-  - master
