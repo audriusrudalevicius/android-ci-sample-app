@@ -1,34 +1,29 @@
 sudo: required
 
-language: android
-jdk: oraclejdk7
+language: java
+jdk: oraclejdk8
 
 services:
   - docker
-env:
-  matrix:
-    - ANDROID_TARGET=android-24 ANDROID_ABI=armeabi-v7a
-android:
-  components:
-    - tools
-    - platform-tools
-    - android-24
-    - build-tools-24.0.1
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-  licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
 
 before_script:
 - docker pull d3trax/android-build
-- docker run -v `pwd`:/project d3trax/android-build run_build
-- echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-- emulator -avd test -no-skin -no-audio -no-window &
-- adb wait-for-device
-- adb shell input keyevent 82 &
+- docker run -v $HOME/.gradle:/root/.gradle -v `pwd`:/project d3trax/android-build run_build
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 
 script:
 - ls ./app/build/outputs/apk/app-debug.apk
+
+deploy:
+  skip_cleanup: true
+
+branches:
+  only:
+  - master
