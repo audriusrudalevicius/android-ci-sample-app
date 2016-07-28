@@ -9,5 +9,6 @@ android:
     - android-24
 
 script:
-- ./gradlew
+- ./gradlew --stacktrace androidDependencies
+- ./gradlew --stacktrace
 - ls ./app/build/outputs/apk/app-debug.apk
