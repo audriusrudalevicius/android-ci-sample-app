@@ -9,4 +9,5 @@ android:
     - android-24
 
 script:
+- ./gradlew
 - ls ./app/build/outputs/apk/app-debug.apk
