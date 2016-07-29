@@ -1,9 +1,4 @@
-language: android
-jdk: oraclejdk8
-
-env:
-  matrix:
-    - ANDROID_TARGET=android-24  ANDROID_ABI=armeabi-v7a
+language: bash
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -12,26 +7,14 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-24.0.1
-    - android-24
-    - extra-android-support
-    - extra-android-m2repository
-    - extra-google-m2repository
-    - extra-google-google_play_services
-    - sys-img-armeabi-v7a-android-24
+sudo: required
+
+services:
+  - docker
 
 before_install:
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-
-before_script:
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+- docker pull d3trax/android-fastlane
+- docker run -v `pwd`:/project -v $HOME/.gradle:/root/.gradle d3trax/android-fastlane
 
 script:
-- ./gradlew --stacktrace androidDependencies
-- ./gradlew --stacktrace
+- ls ./app/build/outputs/apk/app-debug.apk
