@@ -12,7 +12,7 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv -in android-sample-ab35bcde66c5.json.enc -out android-sample-ab35bcde66c5.json -d
   - docker pull d3trax/android-fastlane
   - mkdir /tmp/temp_avd
-  - docker run -v /tmp/temp_avd:/root/avd -v `pwd`:/project -v $HOME/.gradle:/root/.gradle d3trax/android-fastlane sh -c "/usr/bin/start_vm && /usr/local/bundle/bin/fastlane test beta"
+  - docker run -v /tmp/temp_avd:/root/avd -v `pwd`:/project -v $HOME/.gradle:/root/.gradle d3trax/android-fastlane sh -c "/usr/bin/start_vm && /usr/local/bundle/bin/fastlane test alpha"
 script:
   - ls ./app/build/outputs/apk/app-debug.apk
 env:

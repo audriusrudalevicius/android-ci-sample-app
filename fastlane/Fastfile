@@ -17,6 +17,7 @@ default_platform :android
 
 platform :android do
   before_all do
+    # ensure_git_status_clean
     gradle(task: "clean")
     gradle(task: "generateChangelog")
     git_add(path: "./app/version.properties")
@@ -30,15 +31,13 @@ platform :android do
   desc "Deploy a new version to the Google Play"
   lane :alpha do
     gradle(task: "assembleRelease")
-    # screengrab
-    supply
+    supply(track: "alpha")
   end
 
   desc "Deploy a new version to the Google Play"
   lane :beta do
     gradle(task: "assembleRelease")
-    # screengrab
-    supply
+    supply(track: "beta")
   end
 
   desc "Deploy a new version to the Google Play"
