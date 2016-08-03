@@ -1,0 +1,2 @@
+json_key_file "android-sample-ab35bcde66c5.json" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+package_name "com.nfq.g34254f.myapplication" # e.g. com.krausefx.app

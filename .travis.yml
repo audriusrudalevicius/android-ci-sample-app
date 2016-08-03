@@ -1,20 +1,21 @@
 language: bash
-
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 sudo: required
-
 services:
   - docker
-
 before_install:
-- docker pull d3trax/android-fastlane
-- docker run -v `pwd`:/project -v $HOME/.gradle:/root/.gradle d3trax/android-fastlane
-
+  - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv -in android-sample-ab35bcde66c5.json.enc -out android-sample-ab35bcde66c5.json -d
+  - docker pull d3trax/android-fastlane
+  - mkdir /tmp/temp_avd
+  - docker run -v /tmp/temp_avd:/root/avd -v `pwd`:/project -v $HOME/.gradle:/root/.gradle d3trax/android-fastlane sh -c "/usr/bin/start_vm && /usr/local/bundle/bin/fastlane test beta"
 script:
-- ls ./app/build/outputs/apk/app-debug.apk
+  - ls ./app/build/outputs/apk/app-debug.apk
+env:
+  global:
+  - secure: n09O6irrU04+FSDfcmHNKO1F5ZjlKmygs2s8wgUcTE80CZjgxVLkLjYdemPdDz1JkmuuHRzXOpy6jXFa/bwFI1m8vof/r5P5NgYfrwALnE0pXlorOQu+fl2ZFqwV3pu8a3T9Z+W4KH9TW4JCdxe+0rhbXqMlMmaIowFq6nvG+o/vR6U1nQfo6QKqIv/e7zNXrs7XydPwlEXdiSELxre9FV7dn/q8YYhwqm4y53VbAZ2nRYptWV3HCmr4OugLfGC79cezkI/ynjjPlre46BXcXNOQwTWgv/9BICBVcaRgEOxpK0pftp0a24k+E87sPIBMC7MnSHlK6SQDZ1ERvBgPbsSNI7fy8EZmqR4T6Kew0K9ORWKu5qyGfj86CN8PEULnLAubIlUHv3d0vzQxwS39WSjlFTFX/duyi2Qxrhkh/oW55HMoydTxrrc2wOVxmqIwsSkhNTKFvLhJaPFE5pH4xqgR+b07M46Afu5SbzU+EHnUnC+h9oJ4VyfQnpF1ZYcHbppDoQoXgvLxbsXRH+pH0BpPHEWvcqElInICYxpYPSKX5FaBkAnFAECb3qEgJrIZBAtoi8hF0KdzYqXZ/dSEph8wrZUeeM7zRaw3U5e88ZonfRsncRU4xhakfHxaGD597pUSbkzRDqboym6a7NKvt1zOnBHF12CtSebiuU7MOFQ=
+  - secure: PyUda3o0Zn+782LVJrYPzN1GUa5+IkGI/EKcA7hIF3prAl/Q+XhGAJKSiok5lV/V2o2ZqJHcaHhZ2NFbtQlvQFD1fEO4jucqreuQY1eFXnsoRWjsZRctMFYVmQFoYW3bO7jgJDBBye8wIOvmeaehoS9n8nyheaLxrxIuGVZ6EE+gHQlVApDrJv95WirUqb4NSSaREgWMsF4RAAaRUo3J3OswrxsHvoJBTgVDIH9aLNzUFJKTi+JuCdq74NODyRbv75H5/l0WiJyqrbOCS4PeVPkJwH52l5uGtnxv/0nGcryrF1/xmPW8t0rjS08fs0LbSZ+j+I2kQ7CwJELhk7gAPGQhPdKSo+Rx9h3ZShnvZJ66WYj4BTgS71BhgCMK6hA0ZZvd/KeO20KE0f0iEMDZaTBdeEjqcOXv2NmlQIBc1twdOTOAO665NDMqjwds7PmpfYyHBsJiZdjwbA0+QrShL4Z4uxs0OBdUfzruO02B4tk4vpIEvLzxGOEjlEcM+QHYLl6230uAR4kEYPSFwOWikNhchSP9RwFVX4jxCt+WsStlUvnfcJlI+B7E5pOjfbw5jqxHSocEQzKURCOVVrXxMLL7O0j+THHLRlYoRXIYb8HUbPeJUZslVsloAn2B5biemH9cC+/lGKfASi61Ehpe3DsdcRbGVqIyXzeYONTqumo=
