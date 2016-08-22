@@ -40,7 +40,7 @@ android {
     defaultConfig {
         applicationId "com.nfq.g34254f.myapplication"
         minSdkVersion 21
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode advancedVersioning.versionCode
         versionName advancedVersioning.versionName
         signingConfig signingConfigs.config
