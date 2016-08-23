@@ -12,9 +12,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-rvm:
-  - 2.2
-
 android:
   components:
     - tools
@@ -28,6 +25,7 @@ android:
     - sys-img-armeabi-v7a-android-24
 
 before_install:
+  - rvm install 2.0.0
   - gem install fastlane
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
