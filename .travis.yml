@@ -12,6 +12,9 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+rvm:
+  - 2.2
+
 android:
   components:
     - tools
