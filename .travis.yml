@@ -25,6 +25,7 @@ android:
     - sys-img-armeabi-v7a-android-24
 
 before_install:
+  - gem install fastlane
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
 
