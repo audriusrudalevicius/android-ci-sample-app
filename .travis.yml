@@ -19,11 +19,14 @@ android:
   components:
     - tools
 
+node_js:
+  - "4"
+
 before_install:
   - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv -in android-sample-ab35bcde66c5.json.enc -out android-sample-ab35bcde66c5.json -d
   - rvm install 2.0.0
   - gem install fastlane
-  - sudo service docker start
+  - cd nodejs && npm i
 
 script:
-- docker run -v `pwd`:/usr/src/app/out d3trax/appbuildserver agent-cli
+-  cd nodejs && npm test
