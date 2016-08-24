@@ -29,15 +29,17 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :alpha do
-    gradle(task: "assembleRelease")
+    gradle(task: "assembleDebug assembleDebugAndroidTest")
     screengrab
+    gradle(task: "assembleRelease")
     supply(track: "alpha")
   end
 
   desc "Deploy a new version to the Google Play"
   lane :beta do
-    gradle(task: "assembleRelease")
+    gradle(task: "assembleDebug assembleDebugAndroidTest")
     screengrab
+    gradle(task: "assembleRelease")
     supply(track: "beta")
   end
 
