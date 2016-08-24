@@ -1,0 +1,8 @@
+# use_tests_in_classes ['com.nfq.g34254f.myapplication.ScreenshotTest']
+app_package_name 'com.nfq.g34254f.myapplication'
+tests_package_name 'com.nfq.g34254f.myapplication.test'
+app_apk_path 'app/build/outputs/apk/app-google-play-1.0.0.8.apk'
+tests_apk_path 'app/build/outputs/apk/app-debug-androidTest-unaligned.apk'
+locales ['en-US']
+test_instrumentation_runner 'android.support.test.runner.AndroidJUnitRunner'
+clear_previous_screenshots true

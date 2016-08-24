@@ -40,5 +40,5 @@ before_script:
 
 script:
 - fastlane test
-- screengrab
+- ./gradlew assembleDebug assembleDebugAndroidTest
 - fastlane alpha
